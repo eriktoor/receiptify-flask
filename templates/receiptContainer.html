@@ -1,0 +1,82 @@
+{% macro receiptContainer(songs, id, duration) -%}
+<div class="receiptContainer" id="{{ id }}">
+    <h2 class="logo">
+        RECEIPTIFY
+    </h2>
+    <p class="period">
+        {{ duration }}
+    </p>
+    <p class="date">
+        ORDER #0001 FOR RECEIPTIFY
+    </p>
+    <p class="date">
+       {{currentTime|strftime}}
+    </p>
+
+    <table class="tracks">
+        <thead>
+            <tr>
+                <td class="begin">
+                    QTY
+                </td>
+                <td>
+                    ITEM
+                </td>
+                <td class="length">
+                    AMT
+                </td>
+            </tr>
+        </thead>
+    {% for song in songs %}
+        <tr>
+            <td class="begin">
+                {{ loop.index }}
+            </td>
+            <td class="name">
+                {{ song.name }} - {{ song.artists[0].name }}
+            </td>
+            <td class="length">
+                {{ song.duration_ms | mmss }}
+            </td>
+        </tr>
+    {% endfor %}
+        <tr class="total-counts">
+            <td class="begin" colspan="2">
+                ITEM COUNT:
+            </td>
+            <td class="length">
+                {{ songs | length }}
+            </td>
+        </tr>
+        <tr class="total-counts-end">
+            <td class="begin" colspan="2">
+                TOTAL:
+            </td>
+            <td class="length">
+                {{ (songs | sum(attribute='duration_ms')) | mmss }}
+            </td>
+        </tr>
+    </table>
+    <p class="date">
+        CARD #: **** **** **** {{ currentTime.tm_year }}
+    </p>
+    <p class="date">
+        AUTH CODE: 123421
+    </p>
+    <p class="date">
+        CARDHOLDER: RECEIPTIFY
+    </p>
+    <div class="thanks">
+        <p>
+            THANK YOU FOR VISITING!
+        </p>
+        <img style="width: 80%" src="{{ url_for('static', filename='barcode.png') }}">
+        <p class="website">
+            receiptify.eriktoor.com
+    </p>
+
+</div>
+</div>
+
+
+{%- endmacro %}

@@ -1,0 +1,99 @@
+
+
+
+  #short_term_receipt {
+    display: none 
+  }
+
+  #downloadPicButton {
+    display: none
+  }
+
+  #medium_term_receipt {
+    display: none 
+  }
+
+  #long_term_receipt {
+    display: none 
+  }
+
+
+  body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+  .receiptContainer {
+    background-image: url(wrinkled-paper.jpg);
+    background-position: center;
+    width: 340px;
+    filter: brightness(110%);
+    padding: 20px;
+    text-transform: uppercase;
+}
+
+.logo {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 2.3rem;
+  text-align: center;
+}
+
+p, table, .date {
+  font-family: "receipt", "Courier New", Courier, monospace;
+  /* font-size: 2.1rem;
+  line-height: 2rem; */
+}
+
+td {
+  padding: 0 5px;
+}
+
+.tracks {
+  margin: 5px 0vh;
+}
+
+table {
+  border: none;
+}
+
+table {
+  max-width: 100%;
+  background-color: transparent;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.generatePicButton {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  padding: 1vh 3vh;
+  background-color: #0056ff;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 10px;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Geneva, Tahoma, sans-serif;
+  margin: 10px;
+  width: auto;
+}
+
+.spotifyButton {
+  margin: 2vh auto;
+  text-align: center;
+  text-decoration: none;
+  padding: 2vh 5vh;
+  background-color: #1db954;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Geneva, Tahoma, sans-serif;
+}

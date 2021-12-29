@@ -1,0 +1,101 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+
+    {% from "receiptContainer.html" import receiptContainer with context %}
+
+    <script>
+
+        var activeReceipt;
+
+
+        function showContent(id) {
+            // set all of the other ones to invisible
+            for (let i = 0; i < document.querySelectorAll(".receiptContainer").length; i++) {
+                document.querySelectorAll(".receiptContainer")[i].style.display = "none"
+            }
+            document.getElementById(id).style.display = 'inline-block'
+            document.getElementById('downloadPicButton').style.display = 'inline-block'
+            activeReceipt = id
+        }
+
+        function hiddenClone(element) {
+            // Create clone of element
+            var clone = element.cloneNode(true);
+
+            // Position element relatively within the
+            // body but still out of the viewport
+            var style = clone.style;
+            style.position = "relative";
+            style.top = window.innerHeight + "px";
+            style.left = 0;
+            // Append clone to body and return the clone
+            document.body.appendChild(clone);
+            return clone;
+        }
+
+        $(document).ready(function () {
+
+            // Global variable
+            var element = $(".receiptContainerWrapper");
+
+            // Global variable
+            var getCanvas;
+
+            $("#downloadPicButton").on('click', function () {
+                var offScreen = document.querySelector(".receiptContainerWrapper");
+                window.scrollTo(0, 0);
+                var clone = hiddenClone(offScreen);
+                // Use clone with htm2canvas and delete clone
+                html2canvas(clone, { scrollY: -window.scrollY }).then((canvas) => {
+                    var dataURL = canvas.toDataURL("image/png", 1.0);
+                    document.body.removeChild(clone);
+                    var link = document.createElement("a");
+                    link.href = dataURL;
+                    link.download = `${activeReceipt}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            });
+
+        });
+
+    </script>
+
+    <div>
+        <h1>Header!</h1>
+    </div>
+
+    <div style="width: 100%; height: auto" class="buttons">
+        <center>
+            <div>
+                <button onclick="showContent('short_term_receipt')" class="generatePicButton">Short Term Receipt</button>
+                <button onclick="showContent('medium_term_receipt')" class="generatePicButton">Medium Term Receipt</button>
+                <button onclick="showContent('long_term_receipt')" class="generatePicButton">Long Term Receipt</button>
+            </div>
+        </center>
+    </div>
+
+    <div style="width: 100%; height: auto" class="receiptContainerWrapper">
+        <center>
+            {{ receiptContainer(short_term['items'], 'short_term_receipt', 'LAST MONTH') }}
+            {{ receiptContainer(medium_term['items'], 'medium_term_receipt', 'LAST 6 MONTHS') }}
+            {{ receiptContainer(long_term['items'], 'long_term_receipt', 'ALL TIME') }}
+        </center>
+    </div>
+
+    <center>
+        <button class="generatePicButton" id="downloadPicButton">Download</button>
+    </center>
+
+</body>
+
+</html>
