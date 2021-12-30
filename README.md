@@ -14,3 +14,10 @@ After you get credentials...
 1. docker build -t receiptify-flask:1.0.1 . 
 2. docker run -p 1000:5000 {CONTAINER_ID}
 
+## Steps to run with Docker Swarm 
+*** not complete
+1. docker-compose build
+2. docker swarm init
+3. docker stack deploy -c docker-compose.yml swarmapp
+4. docker service ls 
+
