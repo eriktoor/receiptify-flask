@@ -83,6 +83,10 @@ def getTracks():
         offset=0,
         time_range=LONG_TERM,
     )
+
+    import os
+    os.remove(".cache")
+    
     return render_template('receipt.html', short_term=short_term, medium_term=medium_term, long_term=long_term, currentTime=gmtime())
 
 
