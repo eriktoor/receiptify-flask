@@ -4,6 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 import time 
 from time import gmtime, strftime
 from credentials import CLIENT_ID, CLIENT_SECRET, SECRET_KEY
+import os
 
 # Defining consts
 TOKEN_CODE = "token_info"
@@ -31,7 +32,6 @@ def index():
 @app.route('/login')
 def login():
     sp_oauth = create_spotify_oauth()
-    print(sp_oauth.__dict__)
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
 
@@ -41,7 +41,6 @@ def redirectPage():
     session.clear() 
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
-    print(sp_oauth)
     session[TOKEN_CODE] = token_info    
     return redirect(url_for("getTracks", _external=True))
 
@@ -84,9 +83,8 @@ def getTracks():
         time_range=LONG_TERM,
     )
 
-    import os
     os.remove(".cache")
-    
+
     return render_template('receipt.html', short_term=short_term, medium_term=medium_term, long_term=long_term, currentTime=gmtime())
 
 
