@@ -43,7 +43,7 @@ def redirectPage():
     token_info = sp_oauth.get_access_token(code)
     print(sp_oauth)
     session[TOKEN_CODE] = token_info    
-    return redirect(url_for("getTracks", _external=True))
+    return redirect(url_for("getTracks", code=token_info["access_token"], _external=True))
 
 
 def get_token(): 
@@ -59,13 +59,15 @@ def get_token():
 
 @app.route('/getTracks')
 def getTracks():
+    access_token = request.args.get('code')
     try: 
         token_info = get_token()
     except: 
         print("user not logged in")
         return redirect("/")
+
     sp = spotipy.Spotify(
-        auth=token_info['access_token'],
+        auth=access_token, # token_info['access_token'],
     )
 
     short_term = sp.current_user_top_tracks(
