@@ -90,9 +90,9 @@
 
     <div style="width: 100%; height: auto" class="receiptContainerWrapper">
         <center>
-            {{ receiptContainer(short_term['items'], 'short_term_receipt', 'LAST MONTH') }}
-            {{ receiptContainer(medium_term['items'], 'medium_term_receipt', 'LAST 6 MONTHS') }}
-            {{ receiptContainer(long_term['items'], 'long_term_receipt', 'ALL TIME') }}
+            {{ receiptContainer(user_display_name, short_term['items'], 'short_term_receipt', 'LAST MONTH') }}
+            {{ receiptContainer(user_display_name, medium_term['items'], 'medium_term_receipt', 'LAST 6 MONTHS') }}
+            {{ receiptContainer(user_display_name, long_term['items'], 'long_term_receipt', 'ALL TIME') }}
         </center>
     </div>
 
